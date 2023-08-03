@@ -27,11 +27,13 @@ path, and the project id.
 
 #################Global: ######################################################################
 
-all_time = [] # Where all values for the of events will be tracked.
+all_time = [] # Where all values for the OS_time will be tracked.
 
 all_status = [] # Where all values for the vital_status of cases will be tracked
 
 all_submitter_id = [] # The submitter ids of all cases that will be compared
+
+time_0 = [] # Where all values OS_time 0 or less are tracked.
 
 submitter_id_list = [] # A secondary list of submitter ids that is only used for the getSubmitterId() function
 
@@ -238,6 +240,9 @@ def getData(submitter_id, keys, survival_fields, filter_field):
                 all_time.append(time[0]) 
                 all_status.append(status[0])
                 all_submitter_id.append(submitter_id[0])
+            elif time[0] <= 0:
+                case_info = [submitter_id[0], time[0], status[0]]
+                time_0.append(case_info)
 
 '''
 Once all of the data has been corectly filtered, it is formatted into a data frame. The first column has all OS_time values
@@ -295,6 +300,9 @@ def comparison(survival, xena, column):
         print("\nsuccess!")
         print("number of cases compared: ")
         print(os_compare)
+        if len(time_0) > 0:
+            print("\nCases with OS_time equal to 0 or less [Submitter_id, OS_time, OS]:")
+            print(time_0)
     else: # if they are not equivalent the program fails. 
         print("\nFailed")
         print("\nCases successfully compared:" + str(os_compare) + "/" + str(len(survival.index)))
