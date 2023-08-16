@@ -52,7 +52,7 @@ missing_samples = []
 ############################### CONSTANT ##########################################
 
 # Xena TSV file name. 
-xena_file = "/Users/michaeltellis/Downloads/CTSP-DLBCL1/Xena_Matrices/CTSP-DLBCL1.clinical.tsv"
+#xena_file = "/Users/michaeltellis/Downloads/CTSP-DLBCL1/Xena_Matrices/CTSP-DLBCL1.clinical.tsv"
 
 if len(sys.argv) != 2:
 	print("incorrect arguments")
@@ -372,7 +372,7 @@ An important edge case is when xena is empty, but float type it is actually a pa
  every key, value pair is compared, check if total_comp is equivlant to comp_count. If so, the function returns True (successful 
  comparison) or False (unsuccesful).
 '''
-def compareXena(data_dict, search): # data_dict is dictionary with all clinical data of a specific case. Search is the submitter_id of this case.
+def compareXena(data_dict, search, failed_data): # data_dict is dictionary with all clinical data of a specific case. Search is the submitter_id of this case.
 	#total number of comparisons
 	total_comp = 0 
 	#total number of successful comparisons.
@@ -417,6 +417,8 @@ def compareXena(data_dict, search): # data_dict is dictionary with all clinical 
 				#Print out the key, value pair and type, as well as xena. 
 				else: 
 					total_comp += 1
+					temp = {key: value[i]}
+					failed_data.append(temp)
 					print(key)
 					print(value[i])
 					print(type(value[i]))
@@ -460,6 +462,8 @@ def compareXena(data_dict, search): # data_dict is dictionary with all clinical 
 				#Print out the key, value pair and type, as well as xena. 
 				else: 
 					total_comp += 1
+					temp = {key: value[i]}
+					failed_data.append(temp)
 					print(key)
 					print(value[i])
 					print(type(value[i]))
@@ -481,6 +485,8 @@ def compareXena(data_dict, search): # data_dict is dictionary with all clinical 
 				#Print out the key value pair and type, as well as xena.
 				else:
 					total_comp += 1
+					temp = {key: value[i]}
+					failed_data.append(temp)
 					print(key)
 					print(value)
 					print(type(value[i]))
@@ -494,7 +500,7 @@ def compareXena(data_dict, search): # data_dict is dictionary with all clinical 
 		return True
 	# if not, return False (unsuccessful)
 	else: 
-		return False
+		return failed_data
 
 
 
@@ -523,6 +529,8 @@ def compareData(responseJson, filter_list): # responseJson (probably a bad namea
 	sample_compare = 0
 	#failed_cases is the list of 'submitter_id' where the comparison was unsuccessful.
 	failed_cases = []
+	#failed_data is the list of data, with their fields, that failed the comparison
+	failed_data = []
 	#missing_data  is the list of samples that were not compared.
 	missing_data = []
 
@@ -542,29 +550,33 @@ def compareData(responseJson, filter_list): # responseJson (probably a bad namea
 
 		#compares data_dict with xena_df. 
 		#If the function returns true, it means the comparison was successful. 
-		if compareXena(data_dict, search) == True:
+		if compareXena(data_dict, search, failed_data) == True:
 			#number of successfully compared samples increases by 1.
 			sample_compare +=1
 		#otherwise, the comparison was unsucessful.
-		else:
+		else: 
+			failed_data = compareXena(data_dict, search, failed_data)
 			#the 'submitter_id' of the case is saved to failed_cases
+
 			print("failed")
 			failed_cases.append(search)
 		#total number of samples compared increases by 1.
 		num_sample_compare +=1			
 
-
-	print(sample_compare)
-	print(num_sample_compare)
-	print(num_sample)
-	print(submitter_ids)
+	#print(failed_data)
+	#print(sample_compare)
+	#print(num_sample_compare)
+	#print(num_sample)
+	#print(submitter_ids)
 	sub = set(submitter_ids)
 	# checks if x (samples.submitter_id) is not in the list of subitter_ids compared. If it isn't it is added to missing_data.
 	missing_data = [x for x in filter_list if x not in sub]
-	print("Any missing sample data that was not compared: ")
-	print(missing_data)
+	print("Data that failed the comparison:")
+	print(failed_data)
 	print("Any cases that failed the comparison:")
 	print(failed_cases)
+	print("Any missing sample data that was not compared: ")
+	print(missing_data)
 	return missing_data
 
 
