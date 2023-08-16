@@ -40,10 +40,20 @@ import tarfile
 import sys
 
 if len(sys.argv[:]) != 4:
-    print("Args: this_file   xena_file_path   data_type   debug_mode(optional)")
+    print("Args: this_file   xena_file_path   data_type   debug_mode(True or False)")
     sys.exit(0)
 xena_file = sys.argv[1]
-data_type = sys.argv[2]
+if sys.argv[2] == "fpkm":
+    data_type = "fpkm_unstranded"
+elif sys.argv[2] == "fpkm_uq":
+    data_type = "fpkm_uq_unstranded"
+elif sys.argv[2] == "tpm":
+    data_type = "tpm_unstranded"
+elif sys.argv[2] == "star_counts":
+    data_type = "unstranded"
+else:
+    print("Available data types are 'fpkm', 'fpkm_uq', 'tpm', 'star_counts'")
+    sys.exit(0)
 debug = False
 if sys.argv[3] == "True" or sys.argv[3] == "true":
     debug = True
@@ -100,7 +110,7 @@ def findFile(samples): # samples is the list of samples from the xena_file
         "filters": json.dumps(filters),
         "fields": fields,
         "format": "json",
-        "size": "100"
+        "size": "20000"
     }
     
     response = requests.post(cases_endpt, headers = {"Content-Type": "application/json"},  json = params)
@@ -243,11 +253,11 @@ def compareFiles():
                 print("\n GDC download value: ")
                 print(gdc_data.iloc[item][data_type])
                 print("\n gene id:  ")
-                print(gdc_data.iloc[item]['gene_id'])
+                print(gdc_data.loc[item]['gene_id'])
                 print("\n Xena format value:" )
                 print(xena_data.iloc[item][sample_name])
                 print("\n Ensembl ID: ")
-                print(xena_data.iloc[item]['Ensembl_ID'])
+                print(xena_data.loc[item]['Ensembl_ID'])
                 print("\n Row number: ")
                 print(item)
                 break
