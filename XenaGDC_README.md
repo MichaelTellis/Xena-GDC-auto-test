@@ -1,60 +1,12 @@
-<!-- Output copied to clipboard! -->
-
-<!-----
-
-You have some errors, warnings, or alerts. If you are using reckless mode, turn it off to see inline alerts.
-* ERRORs: 0
-* WARNINGs: 0
-* ALERTS: 12
-
-Conversion time: 2.184 seconds.
-
-
-Using this Markdown file:
-
-1. Paste this output into your source file.
-2. See the notes and action items below regarding this conversion run.
-3. Check the rendered output (headings, lists, code blocks, tables) for proper
-   formatting and use a linkchecker before you publish this page.
-
-Conversion notes:
-
-* Docs to Markdown version 1.0β34
-* Sun Aug 20 2023 15:46:12 GMT-0700 (PDT)
-* Source doc: report
-* This document has images: check for >>>>>  gd2md-html alert:  inline image link in generated source and store images to your server. NOTE: Images in exported zip file from Google Docs may not appear in  the same order as they do in your doc. Please check the images!
-
------>
-
-
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 0; ALERTS: 12.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-<a href="#gdcalert2">alert2</a>
-<a href="#gdcalert3">alert3</a>
-<a href="#gdcalert4">alert4</a>
-<a href="#gdcalert5">alert5</a>
-<a href="#gdcalert6">alert6</a>
-<a href="#gdcalert7">alert7</a>
-<a href="#gdcalert8">alert8</a>
-<a href="#gdcalert9">alert9</a>
-<a href="#gdcalert10">alert10</a>
-<a href="#gdcalert11">alert11</a>
-<a href="#gdcalert12">alert12</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
-**Project Overview**
+# Project Overview
 
 UCSC Xena is an online tool that allows users to analyze and visualize genomics data[1]. The website supports various data types from multiple platforms such as the Genomics Data Commons (GDC)[2]. Data types supported by the GDC Xena hub include RNA-seq gene expression, DNA methylation, clinical data, Gene-level mutation, survival, and more. The data from the GDC was last imported into UCSC Xena 4 years ago using the Xena-GDC-ETL code[7]. This means that Xena users lack access to the newer and updated GDC data. The quantity of data that needs to be updated is significant, which makes it impossible to completely test the data manually. This project aims to create a set of automatic testing scripts to efficiently validate the accuracy of each data type imported from the GDC through the Xena-GDC-ETL code[7], both for data from existing projects on the Xena browser such as The Cancer Genome Atlas (TCGA)[5], as well as new projects like CTSP-DLBCL1[6] to the Xena platform. These scripts will complement some manual spot-checking as well as some manual tests which can not be automated. 
 
-**Background: GDC**
+# Background: GDC
 
 The NCI's Genomic Data Commons (GDC) provides the cancer research community with a unified repository and cancer knowledge base that enables data sharing across cancer genomic studies in support of precision medicine. The GDC provides public access to data from important national and international cancer research projects such as TCGA, Therapeutically Applicable Research to Generate Effective Treatments (TARGET) [3], and Genomics Evidence Neoplasia Information Exchange (GENIE)[4]. This data can be retrieved and downloaded using the GDC API’s various endpoints, such as “/cases”, “/files”, “/projects”, etc. These endpoints are used by the Xena-GDC-ETL to import data, transform the data into files that are compatible with Xena, and transfer it to the Xena hub. 
 
-**Objective**
+# Objective
 
 A multitude of researchers use data from the GDC database on the Xena browser, making the accuracy of this data a major priority. The data is too large to be tested entirely by hand, hence it is crucial to automatically test the data from the GDC. This project consists of:
 
@@ -65,9 +17,9 @@ A multitude of researchers use data from the GDC database on the Xena browser, m
 * Develop an automatic test for GDC survival data
 * Develop an automatic test for GDC clinical data
 
-**Methods**
+# Methods
 
-**Testing the RNA-seq gene expression data on CTSP-DLBCL1[6]**
+## Testing the RNA-seq gene expression data on CTSP-DLBCL1[6]
 
 The first project chosen to import from the GDC using Xena-GDC-ETL was CTSP-DLBCL1. This is due to the project’s small case size of 45 and the fact that it was limited in its types of genomic data to only RNA-seq data. 
 
@@ -75,38 +27,35 @@ I wrote a script that compared the four types of gene expression data (counts, F
 
 In addition to comparing the values cell-by-cell, I also created a test to find the correlation between the different data types of RNA-seq data and ensure that the values are close to one. I wrote a script to run a Pearson correlation[8] between all four RNA-seq data types, resulting in six comparisons. This is done on a sample-by-sample basis, meaning the correlation test only checks one sample, but every gene. However, counts are the number of sequence reads of a gene. Because gene sizes may vary significantly, this means that larger genes will generally have more counts. This is different from FPKM, FPKM-uq, and TPM, which are normalized to one million read counts. This means that these three data types measure the density of read counts, while counts are the total number of read counts. Due to this difference, any correlation test with counts is done on a gene-by-gene basis, meaning that only one gene is measured for every sample. This is done to prevent any variation between genes. All of the values are plotted onto a scatter plot with the axes being data types.
 
-**Testing the clinical data**
+## Testing the clinical data
 
 For the clinical data I was not able to simply download the clinical data from the GDC API to compare to the .tsv file generated by the Xena-GDC-ETL code because the Xena-GDC-ETL code deletes fields that have no data. This is common for the clinical data from the GDC as each project reports different clinical data depending on the cancer type, project stage, and which fields the project was able to collect as part of the project. In light of this, the script I wrote first reads the fields from the .tsv file generated by the Xena-GDC-ETL. These fields are then used to limit the output from the calls to the GDC API clinical endpoint to only these fields. The results from the GDC API are loaded into a pandas data frame. Then, similar to the RNA-seq automated testing, the .tsv file is converted to a pandas data frame to compare each value. If there are multiple samples per case, the sample IDs are saved and run through the program a second time. 
 
-**Testing the survival data**
+## Testing the survival data
 
 The GDC API has a specific endpoint for survival data called: “/analysis/survival”, which the Xena-GDC-ETL code uses this endpoint to retrieve survival data. This is a separate endpoint from the "cases" clinical data endpoint. I created a script to retrieve survival data of a specified project using the “/analysis/survival” endpoint, convert it into a data frame, and compare it with the Xena-GDC-ETL generated data frame, similar to the testing script for the RNA-seq data. 
 
 Further, I created an automated test to verify the internal consistency within the GDC between the survival and "cases" clinical endpoints. It first retrieves the relevant survival fields for a specific project using the GDC API’s “/cases” endpoint. This endpoint returns data on a case-by-case basis, which is then formatted into a data frame. From here it takes the 'vital status' as whether the individual is alive or dead. It then takes the greatest value of the following fields: “days to death”, “days to last follow up”, “days to last known disease status”, “days to recurrence”, and more, as these are all related to the calculation of time to event, whether that is being alive or dead. Finally, the .tsv file output by the Xena-GDC-ETL code is converted to a data frame as well, so that every cell can be compared. While the first test was conducted on the CTSP-DLBCL1 project, we also conducted multiple tests on TCGA-BRCA and TCGA-UCEC.
 
-**Results & Outcomes**
+# Results & Outcomes
 
-**RNAseq data automated testing results:**
+## RNAseq data automated testing results:
 
 Each automated testing script was run on the CTSP-DLBCL1 project. When testing RNA-seq data of CTSP-DLBCL1 imported by the Xena-GDC-ETL, all data matched, meaning that the import done by the Xena-GDC-ETL code was accurate. 
 
-**Clinical and survival data automated testing results:**
+## Clinical and survival data automated testing results:
 
 There were several inconsistencies between the survival and clinical data. When using the “/cases” endpoint, several cases that were alive but had follow-up data, were missing from the GDC survival endpoint. These inconsistencies were in the CTSP-DLBCL1 project (an example is CTSP-AD1S), but not in the TCGA-BRCA or TCGA-UCEC projects. Initial analysis of the clinical and survival endpoints leads me to believe that this is due to the fact that the CTSP-DLBCL1 projects submitted follow-up data to the field: ‘days to follow up’, whereas the TCGA project submitted to the field ‘days to last follow up’. Further analysis and follow up are needed to verify this. Despite this internal consistency within the GDC, the Xena-GDC-ETL import worked as expected where, for the project CTSP-DLBCL1, the “/analysis/survival” endpoint leads to the same results as the Xena-GDC-ETL import. 
 
 Another example of different endpoints producing different results can be found in the results of the clinical data automated testing. The automated testing script uses the “/cases” endpoint, while the Xena-GDC-ETL code uses the “/projects” endpoint. Due to this difference, only one diagnosis of a case is retrieved by Xena-GDC-ETL, compared to all diagnoses by the automated testing script.  An example of this is the case, CTSP-AD1S, which has 2 diagnoses, but only one is found in the Xena-GDC-ETL.[jing: detail of the CTSP case that has the inconsistency.]
 
-**Correlation analysis **
+## Correlation analysis 
 
 
 
 ![alt_text](/image9.png "image_tooltip")
 Correlation: 0.9999999999999867
 
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](/image11.png "image_tooltip")
