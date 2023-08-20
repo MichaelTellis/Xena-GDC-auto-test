@@ -54,26 +54,32 @@ Another example of different endpoints producing different results can be found 
 
 
 ![alt_text](image9.png "image_tooltip")
+
 Correlation: 0.9999999999999867
 
 
 ![alt_text](image11.png "image_tooltip")
+
 Correlation: 0.999999999999983
 
 
 ![alt_text](image6.png "image_tooltip")
+
 Correlation: 0.9880884397613635
 
 
 ![alt_text](image3.png "image_tooltip")
+
 Correlation: 0.9999999999999917
 
 
 ![alt_text](image1.png "image_tooltip")
+
 Correlation: 0.9545050830065851
 
 
 ![alt_text](image12.png "image_tooltip")
+
 Correlation: 0.9587627363186685
 
 ### Figure 1: Correlation values between various data types
@@ -123,7 +129,7 @@ Example results:
 ![alt_text](image4.png "image_tooltip")
 
 
-### Survival Automated Testing (/cases endpoint)**
+### Survival Automated Testing (/cases endpoint)
 
 Command line: 
 
@@ -139,7 +145,7 @@ Example results:
 ![alt_text](image8.png "image_tooltip")
 
 
-### Survival Automated Testing(/analysis/survival endpoint)**
+### Survival Automated Testing(/analysis/survival endpoint)
 
 Command line:
 
@@ -155,7 +161,7 @@ Example results:
 ![alt_text](image7.png "image_tooltip")
 
 
-### Clinical Automated Testing**
+### Clinical Automated Testing
 
 Command line:
 
