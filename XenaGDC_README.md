@@ -53,27 +53,27 @@ Another example of different endpoints producing different results can be found 
 
 
 
-![alt_text](/image9.png "image_tooltip")
+![alt_text](image9.png "image_tooltip")
 Correlation: 0.9999999999999867
 
 
-![alt_text](/image11.png "image_tooltip")
+![alt_text](image11.png "image_tooltip")
 Correlation: 0.999999999999983
 
 
-![alt_text](image3.png "image_tooltip")
+![alt_text](image6.png "image_tooltip")
 Correlation: 0.9880884397613635
 
 
-![alt_text](image4.png "image_tooltip")
+![alt_text](image3.png "image_tooltip")
 Correlation: 0.9999999999999917
 
 
-![alt_text](image5.png "image_tooltip")
+![alt_text](image1.png "image_tooltip")
 Correlation: 0.9545050830065851
 
 
-![alt_text](image6.png "image_tooltip")
+![alt_text](image12.png "image_tooltip")
 Correlation: 0.9587627363186685
 
 ### Figure 1: Correlation values between various data types
@@ -99,7 +99,7 @@ python3 XenaGeneExpressionMatrixValidation.py /Users/Downloads/CTSP-DLBCL1.star_
 Example results: 
 
 
-![alt_text](image7.png "image_tooltip")
+![alt_text](image10.png "image_tooltip")
 
 
 ### RNA-seq gene expression correlation testing
@@ -115,12 +115,12 @@ python3 RNAseqPCC.py
 Example results: 
 
 
-![alt_text](image8.png "image_tooltip")
+![alt_text](image5.png "image_tooltip")
 
 
 
 
-![alt_text](image9.png "image_tooltip")
+![alt_text](image4.png "image_tooltip")
 
 
 ### Survival Automated Testing (/cases endpoint)**
@@ -136,7 +136,7 @@ python3 XenaSurvivalMatrixValidation.py /Users/Downloads/CTSP-DLBCL1.survival.ts
 Example results: 
 
 
-![alt_text](image10.png "image_tooltip")
+![alt_text](image8.png "image_tooltip")
 
 
 ### Survival Automated Testing(/analysis/survival endpoint)**
@@ -152,7 +152,7 @@ python3 XenaSurvivalAnalysisEndptValidation.py /Users/Downloads/CTSP-DLBCL1.surv
 Example results: 
 
 
-![alt_text](image11.png "image_tooltip")
+![alt_text](image7.png "image_tooltip")
 
 
 ### Clinical Automated Testing**
@@ -168,7 +168,7 @@ python3 XenaClinicalDataValidation.py /Users/Downloads/CTSP-DLBCL1.clinical.tsv
 Example results: 
 
 
-![alt_text](image12.png "image_tooltip")
+![alt_text](image2.png "image_tooltip")
 
 
 ## Reference
