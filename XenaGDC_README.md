@@ -101,7 +101,7 @@ Another example of different endpoints producing different results can be found 
 
 
 
-![alt_text](/Users/michaeltellis/Downloads/report/images/image9.png "image_tooltip")
+![alt_text](/image9.png "image_tooltip")
 Correlation: 0.9999999999999867
 
 
@@ -109,7 +109,7 @@ Correlation: 0.9999999999999867
 <p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](/Users/michaeltellis/Downloads/report/images/image11.png "image_tooltip")
+![alt_text](/image11.png "image_tooltip")
 
 
 Correlation: 0.999999999999983
