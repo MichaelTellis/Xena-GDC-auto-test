@@ -11,11 +11,18 @@ import tarfile
 import sys
 
 
+'''
+Usage Instructions: 
+Command Line:
+[This file name] [Xena-GDC-ETL imported .tsv file name]
 
+example: python3 XenaGDC/CopyNumberTesting.py /Users/Downloads/CGCI-HTMCP-LC.cnv_ascat-ngs.tsv
+'''
 
 
 
 #### CONSTANTS ########################################
+# example file:
 #xena_file = "/Users/michaeltellis/Downloads/CGCI-HTMCP-LC.cnv_ascat-ngs.tsv"
 xena_file = sys.argv[1]
 keyword = ["files", "samples", "Chrom", "Start", "End", "value"]
